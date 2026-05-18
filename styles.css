@@ -1,25 +1,306 @@
+/* ===========================
+   VARIABLES & RESET
+=========================== */
+:root {
+  --bg: #1a1a2e;
+  --board-bg: #0f3460;
+  --cell-bg: #16213e;
+  --cell-hover: #1a2a50;
+  --x-color: #e94560;
+  --o-color: #0f9b8e;
+  --text-light: #eaeaea;
+  --text-muted: #8892b0;
+  --accent: #f5a623;
+  --border: #2a3a5e;
+  --winner-glow: #f5a623;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  font-family: 'Patrick Hand', cursive;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* subtle dot-grid background */
+  background-image: radial-gradient(circle, #2a3a5e 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ===========================
+   SHARED
+=========================== */
+.title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2.8rem;
+  color: var(--accent);
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===========================
+   SETUP SCREEN
+=========================== */
+.setup-screen {
+  background: var(--board-bg);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 36px;
+  width: 340px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 28px;
+}
+
+.input-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--cell-bg);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-light);
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  border-color: var(--accent);
+}
+
+.btn-start {
+  margin-top: 10px;
+  width: 100%;
+  padding: 13px;
+  background: var(--accent);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 0 4px 0 #b07800;
+}
+
+.btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #b07800;
+}
+
+.btn-start:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #b07800;
+}
+
+/* ===========================
+   GAME SCREEN
+=========================== */
+.game-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Turn / result message */
+.status {
+  font-size: 1.25rem;
+  color: var(--text-light);
+  background: var(--board-bg);
+  padding: 8px 22px;
+  border-radius: 30px;
+  border: 2px solid var(--border);
+  min-width: 240px;
+  text-align: center;
+  transition: color 0.3s;
+}
+
+/* ===========================
+   SCOREBOARD
+=========================== */
+.scoreboard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.score-card {
+  background: var(--cell-bg);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 20px;
+  text-align: center;
+  min-width: 110px;
+  transition: border-color 0.3s;
+}
+
+/* Highlight active player's score card */
+.score-card.active {
+  border-color: var(--accent);
+}
+
+.score-name {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.score-mark {
+  display: block;
+  font-size: 1.1rem;
+  margin: 2px 0;
+}
+
+/* X gets red, O gets teal */
+#score1Card .score-mark { color: var(--x-color); }
+#score2Card .score-mark { color: var(--o-color); }
+
+.score-num {
+  display: block;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.8rem;
+  color: var(--text-light);
+}
+
+.score-divider {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* ===========================
+   BOARD
+=========================== */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 10px;
+}
+
 .cell {
-    width: 150px;
-    height: 150px;
-    border: 2px solid black;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 100px;
-    cursor: pointer;
+  background: var(--cell-bg);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2.6rem;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  user-select: none;
 }
-#gameContainer{
-    font-family: "Permanent Marker", cursive;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+
+.cell:hover:not(.taken) {
+  background: var(--cell-hover);
+  transform: scale(1.04);
 }
-#cellContainer {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    justify-content: center;
-    gap: 0;
+
+/* Once a cell has X or O, no pointer */
+.cell.taken {
+  cursor: default;
+}
+
+/* Color the marks */
+.cell.x {
+  color: var(--x-color);
+}
+
+.cell.o {
+  color: var(--o-color);
+}
+
+/* Winning cells glow */
+.cell.winner {
+  background: rgba(245, 166, 35, 0.15);
+  border-color: var(--winner-glow);
+  animation: pulse 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { box-shadow: 0 0 6px var(--winner-glow); }
+  to   { box-shadow: 0 0 18px var(--winner-glow); }
+}
+
+/* Pop-in animation when a mark is placed */
+@keyframes pop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  70%  { transform: scale(1.15); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+.cell.pop {
+  animation: pop 0.2s ease-out forwards;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+.btn-reset,
+.btn-quit {
+  padding: 10px 28px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.1s;
+}
+
+.btn-reset {
+  background: var(--o-color);
+  color: #fff;
+  box-shadow: 0 4px 0 #0a6b62;
+}
+
+.btn-reset:hover {
+  transform: translateY(-2px);
+}
+
+.btn-reset:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #0a6b62;
+}
+
+.btn-quit {
+  background: transparent;
+  color: var(--text-muted);
+  border: 2px solid var(--border);
+  margin-top: -6px;
+}
+
+.btn-quit:hover {
+  color: var(--text-light);
+  border-color: var(--text-muted);
 }

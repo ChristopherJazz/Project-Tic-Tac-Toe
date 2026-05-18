@@ -1,29 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Patrick+Hand&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <div id="gameContainer">
-        <h1>Tic Tac Toe</h1>
-        <div id="cellContainer">
-            <div cellIndex="0" class="cell"></div>
-            <div cellIndex="1" class="cell"></div>
-            <div cellIndex="2" class="cell"></div>
-            <div cellIndex="3" class="cell"></div>
-            <div cellIndex="4" class="cell"></div>
-            <div cellIndex="5" class="cell"></div>
-            <div cellIndex="6" class="cell"></div>
-            <div cellIndex="7" class="cell"></div>
-            <div cellIndex="8" class="cell"></div>
-        </div>
-        <h2 id="statusText"></h2>
-        <button id="restartBtn">Restart</button>
+
+  <!-- NAME ENTRY SCREEN -->
+  <div class="setup-screen" id="setupScreen">
+    <h1 class="title">Tic Tac Toe</h1>
+    <p class="subtitle">Enter player names to start</p>
+
+    <div class="input-group">
+      <label for="player1Input">✕ Player 1</label>
+      <input type="text" id="player1Input" placeholder="e.g. Alice" maxlength="12" />
     </div>
-    <script src="script.js"></script>
+
+    <div class="input-group">
+      <label for="player2Input">○ Player 2</label>
+      <input type="text" id="player2Input" placeholder="e.g. Bob" maxlength="12" />
+    </div>
+
+    <button class="btn-start" id="startBtn">Let's Play!</button>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div class="game-screen hidden" id="gameScreen">
+    <h1 class="title">Tic Tac Toe</h1>
+
+    <!-- Shows whose turn it is -->
+    <div class="status" id="statusMsg">Player 1's turn</div>
+
+    <!-- Scoreboard -->
+    <div class="scoreboard">
+      <div class="score-card" id="score1Card">
+        <span class="score-name" id="score1Name">Player 1</span>
+        <span class="score-mark">✕</span>
+        <span class="score-num" id="score1">0</span>
+      </div>
+      <div class="score-divider">vs</div>
+      <div class="score-card" id="score2Card">
+        <span class="score-name" id="score2Name">Player 2</span>
+        <span class="score-mark">○</span>
+        <span class="score-num" id="score2">0</span>
+      </div>
+    </div>
+
+    <!-- The 3x3 board -->
+    <div class="board" id="board">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
+    </div>
+
+    <button class="btn-reset" id="resetBtn">New Round</button>
+    <button class="btn-quit" id="quitBtn">Change Players</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
