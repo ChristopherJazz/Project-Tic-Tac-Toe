@@ -17,7 +17,7 @@ const score2El     = document.getElementById("score2");
 const score1Name   = document.getElementById("score1Name");
 const score2Name   = document.getElementById("score2Name");
 const score1Card   = document.getElementById("score1Card");
-const score2Card   = document.getElementById("score2Card");
+const score2Card   = document.getElementById("score2Card");r
 
 // All winning combinations (indexes on the board)
 const WIN_COMBOS = [
